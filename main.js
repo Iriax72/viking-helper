@@ -1,4 +1,5 @@
 import {Jauge} from "./elements/Jauge.js";
+import {Dice} from "./elements/Dice.js";
 
 const gameContainer = document.body;
 
@@ -33,6 +34,8 @@ function create () {
             isVertical: true
         }
     );
+
+    const dice = new Dice(this, 70, 70);
 }
 
 function update () {
