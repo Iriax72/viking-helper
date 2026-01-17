@@ -73,20 +73,20 @@ export class Dice {
     const centerX = this.scene.cameras.main.width / 2;
     const centerY = this.scene.cameras.main.height / 2;
     
-    // Conteneur pour le dé en animation
-    this.animDiceContainer = this.scene.add.container(centerX, centerY);
-    this.animDiceContainer.setDepth(1000);
-    
-    // Fond semi-transparent
+    // Fond semi-transparent qui couvre tout l'écran
     this.overlay = this.scene.add.rectangle(
-      0, 0,
-      this.scene.cameras.main.width,
-      this.scene.cameras.main.height,
+      centerX, centerY,
+      this.scene.cameras.main.width * 2,
+      this.scene.cameras.main.height * 2,
       0x000000, 0.5
     );
     this.overlay.setOrigin(0.5);
     this.overlay.setDepth(999);
     this.overlay.setScrollFactor(0);
+    
+    // Conteneur pour le dé en animation
+    this.animDiceContainer = this.scene.add.container(centerX, centerY);
+    this.animDiceContainer.setDepth(1000);
     this.animDiceContainer.setScrollFactor(0);
     
     // Le dé animé
