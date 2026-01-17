@@ -1,15 +1,16 @@
 export class Jauge {
-  constructor(scene, coos, bornes, length = 300, isVertical = false) {
+  constructor(scene, coos, bornes, params={}) {
     this.scene = scene;
     this.x = coos.x;
     this.y = coos.y;
     this.min = bornes.min;
     this.max = bornes.max;
     this.value = Math.round(bornes.min);
-    this.isVertical = isVertical;
+    this.color = params.color ?? 0x333333;
+    this.isVertical = params.isVertical ?? false;
     
     // Dimensions de la jauge
-    this.length = length;
+    this.length = params.length ?? 300;
     this.thickness = 20;
     this.cursorRadius = 12;
     this.borderRadius = 10;
@@ -19,8 +20,8 @@ export class Jauge {
     
     // Fond de la jauge (rectangle arrondi)
     this.background = scene.add.graphics();
-    this.background.fillStyle(0x333333);
-    if (isVertical) {
+    this.background.fillStyle(this.color);
+    if (this.isVertical) {
       this.background.fillRoundedRect(
         -this.thickness / 2, -this.length / 2,
         this.thickness, this.length,

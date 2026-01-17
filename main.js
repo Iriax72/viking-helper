@@ -27,8 +27,11 @@ function create () {
         this, 
         {x: 200, y: 200}, 
         {min: 0, max: 5},
-        300,
-        true
+        {
+            length: 300,
+            color: 0x333333,
+            isVertical: true
+        }
     );
 }
 
