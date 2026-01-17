@@ -208,9 +208,8 @@ export class Dice {
       ease: 'Back.easeOut',
       yoyo: true,
       onComplete: () => {
-        // Rendre l'overlay cliquable pour fermer
-        this.overlay.setInteractive();
-        this.overlay.on('pointerdown', () => {
+        // Attendre un peu avant de fermer
+        this.scene.time.delayedCall(800, () => {
           this.closeAnimation();
         });
       }
