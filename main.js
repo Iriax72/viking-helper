@@ -25,7 +25,7 @@ function preload () {}
 function create () {
     const jauge = new Jauge(
         this, 
-        {x: 100, y: 100}, 
+        {x: 400, y: 200}, 
         {min: 0, max: 5}
     );
 }
