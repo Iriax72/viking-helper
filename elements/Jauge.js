@@ -42,8 +42,8 @@ export class Jauge {
     
     // Curseur déplaçable
     this.cursor = scene.add.circle(
-      isVertical ? 0 : -this.length / 2,
-      isVertical ? this.length / 2 : 0,
+      this.isVertical ? 0 : -this.length / 2,
+      this.isVertical ? this.length / 2 : 0,
       this.cursorRadius,
       0xffffff
     );
@@ -52,10 +52,10 @@ export class Jauge {
     this.container.add(this.cursor);
     
     // Texte affichant la valeur
-    const textOffset = isVertical ? 40 : -30;
+    const textOffset = this.isVertical ? 40 : -30;
     this.valueText = scene.add.text(
-      isVertical ? textOffset : 0,
-      isVertical ? 0 : textOffset,
+      this.isVertical ? textOffset : 0,
+      this.isVertical ? 0 : textOffset,
       this.value.toString(),
       { fontSize: '16px', color: '#ffffff' }
     );
@@ -64,7 +64,7 @@ export class Jauge {
     
     // Gestion du drag
     this.cursor.on('drag', (pointer, dragX, dragY) => {
-      if (isVertical) {
+      if (this.isVertical) {
         this.updateCursorPosition(dragY);
       } else {
         this.updateCursorPosition(dragX);
