@@ -1,5 +1,6 @@
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
+import {ToggleSquare} from "./elements/ToggleSquare.js";
 
 const gameContainer = document.body;
 
@@ -36,6 +37,15 @@ function create () {
     );
 
     const dice = new Dice(this, 70, 70);
+
+    const toggleSquare = new ToggleSquare(
+        this,
+        {x: 300, y: 160},
+        {
+            initialState: true,
+            size: 65
+        }
+    );
 }
 
 function update () {
