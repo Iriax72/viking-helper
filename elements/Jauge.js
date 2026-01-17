@@ -1,104 +1,155 @@
 export class Jauge {
-    constructor(scene, coos, bornes) {
-        this.scene = scene;
-        this.x = coos.x;
-        this.y = coos.y;
-        this.min = bornes.min;
-        this.max = bornes.max;
-        this.value = bornes.min;
+  constructor(scene, coos, bornes, length = 300, isVertical = false) {
+    this.scene = scene;
+    this.x = coos.x;
+    this.y = coos.y;
+    this.min = bornes.min;
+    this.max = bornes.max;
+    this.value = Math.round(bornes.min);
+    this.isVertical = isVertical;
     
-        // Dimensions de la jauge
-        this.width = 300;
-        this.height = 20;
-        this.cursorRadius = 12;
+    // Dimensions de la jauge
+    this.length = length;
+    this.thickness = 20;
+    this.cursorRadius = 12;
+    this.borderRadius = 10;
     
-        // Conteneur pour tous les éléments graphiques
-        this.container = scene.add.container(this.x, this.y);
+    // Conteneur pour tous les éléments graphiques
+    this.container = scene.add.container(this.x, this.y);
     
-        // Fond de la jauge
-        this.background = scene.add.rectangle(
-            0, 0, 
-            this.width, this.height, 
-            0x333333
-        );
-        this.container.add(this.background);
-    
-        // Barre de remplissage
-        this.fill = scene.add.rectangle(
-            -this.width / 2, 0,
-            0, this.height - 4,
-            0x00ff00
-        );
-        this.fill.setOrigin(0, 0.5);
-        this.container.add(this.fill);
-    
-        // Curseur déplaçable
-        this.cursor = scene.add.circle(
-            -this.width / 2, 0,
-            this.cursorRadius,
-            0xffffff
-        );
-        this.cursor.setStrokeStyle(2, 0x000000);
-        this.cursor.setInteractive({ draggable: true });
-        this.container.add(this.cursor);
-    
-        // Texte affichant la valeur
-        this.valueText = scene.add.text(
-            0, -30,
-            this.value.toFixed(2),
-            { fontSize: '16px', color: '#ffffff' }
-        );
-        this.valueText.setOrigin(0.5);
-        this.container.add(this.valueText);
-    
-       // Gestion du drag
-       this.cursor.on('drag', (pointer, dragX) => {
-            this.updateCursorPosition(dragX);
-        });
-    
-        // Initialisation
-        this.updateVisuals();
+    // Fond de la jauge (rectangle arrondi)
+    this.background = scene.add.graphics();
+    this.background.fillStyle(0x333333);
+    if (isVertical) {
+      this.background.fillRoundedRect(
+        -this.thickness / 2, -this.length / 2,
+        this.thickness, this.length,
+        this.borderRadius
+      );
+    } else {
+      this.background.fillRoundedRect(
+        -this.length / 2, -this.thickness / 2,
+        this.length, this.thickness,
+        this.borderRadius
+      );
     }
+    this.container.add(this.background);
+    
+    // Barre de remplissage
+    this.fill = scene.add.graphics();
+    this.container.add(this.fill);
+    
+    // Curseur déplaçable
+    this.cursor = scene.add.circle(
+      isVertical ? 0 : -this.length / 2,
+      isVertical ? this.length / 2 : 0,
+      this.cursorRadius,
+      0xffffff
+    );
+    this.cursor.setStrokeStyle(2, 0x000000);
+    this.cursor.setInteractive({ draggable: true });
+    this.container.add(this.cursor);
+    
+    // Texte affichant la valeur
+    const textOffset = isVertical ? 40 : -30;
+    this.valueText = scene.add.text(
+      isVertical ? textOffset : 0,
+      isVertical ? 0 : textOffset,
+      this.value.toString(),
+      { fontSize: '16px', color: '#ffffff' }
+    );
+    this.valueText.setOrigin(0.5);
+    this.container.add(this.valueText);
+    
+    // Gestion du drag
+    this.cursor.on('drag', (pointer, dragX, dragY) => {
+      if (isVertical) {
+        this.updateCursorPosition(dragY);
+      } else {
+        this.updateCursorPosition(dragX);
+      }
+    });
+    
+    // Initialisation
+    this.updateVisuals();
+  }
   
-    updateCursorPosition(dragX) {
-        // Limiter le déplacement du curseur dans les bornes de la jauge
-        const minX = -this.width / 2;
-        const maxX = this.width / 2;
-        const clampedX = Phaser.Math.Clamp(dragX, minX, maxX);
+  updateCursorPosition(dragPos) {
+    // Limiter le déplacement du curseur dans les bornes de la jauge
+    const minPos = this.isVertical ? -this.length / 2 : -this.length / 2;
+    const maxPos = this.isVertical ? this.length / 2 : this.length / 2;
+    const clampedPos = Phaser.Math.Clamp(dragPos, minPos, maxPos);
     
-        this.cursor.x = clampedX;
-    
-        // Calculer la valeur correspondante
-        const ratio = (clampedX - minX) / this.width;
-        this.value = this.min + ratio * (this.max - this.min);
-    
-        this.updateVisuals();
+    // Calculer la valeur correspondante
+    let ratio;
+    if (this.isVertical) {
+      // Inverser le ratio pour la jauge verticale (haut = max, bas = min)
+      ratio = (maxPos - clampedPos) / this.length;
+    } else {
+      ratio = (clampedPos - minPos) / this.length;
     }
+    
+    // Calculer la valeur et l'arrondir à l'entier le plus proche
+    const rawValue = this.min + ratio * (this.max - this.min);
+    this.value = Math.round(rawValue);
+    
+    // Recalculer la position exacte du curseur pour correspondre à la valeur entière
+    const exactRatio = (this.value - this.min) / (this.max - this.min);
+    if (this.isVertical) {
+      this.cursor.y = maxPos - exactRatio * this.length;
+    } else {
+      this.cursor.x = minPos + exactRatio * this.length;
+    }
+    
+    this.updateVisuals();
+  }
   
-    updateVisuals() {
-        // Mettre à jour la barre de remplissage
-        const ratio = (this.value - this.min) / (this.max - this.min);
-        this.fill.width = this.width * ratio;
+  updateVisuals() {
+    // Effacer et redessiner la barre de remplissage
+    this.fill.clear();
+    this.fill.fillStyle(0x00ff00);
     
-        // Mettre à jour le texte
-        this.valueText.setText(this.value.toFixed(2));
-    }
-  
-    setValue(newValue) {
-        this.value = Phaser.Math.Clamp(newValue, this.min, this.max);
+    const ratio = (this.value - this.min) / (this.max - this.min);
     
-        // Mettre à jour la position du curseur
-        const ratio = (this.value - this.min) / (this.max - this.min);
-        this.cursor.x = -this.width / 2 + this.width * ratio;
+    if (this.isVertical) {
+      const fillHeight = this.length * ratio;
+      this.fill.fillRoundedRect(
+        -this.thickness / 2 + 2, this.length / 2 - fillHeight,
+        this.thickness - 4, fillHeight,
+        this.borderRadius - 2
+      );
+    } else {
+      const fillWidth = this.length * ratio;
+      this.fill.fillRoundedRect(
+        -this.length / 2 + 2, -this.thickness / 2 + 2,
+        fillWidth, this.thickness - 4,
+        this.borderRadius - 2
+      );
+    }
     
-        this.updateVisuals();
-    }
+    // Mettre à jour le texte
+    this.valueText.setText(this.value.toString());
+  }
   
-    getValue() {
-        return this.value;
+  setValue(newValue) {
+    this.value = Math.round(Phaser.Math.Clamp(newValue, this.min, this.max));
+    
+    // Mettre à jour la position du curseur
+    const ratio = (this.value - this.min) / (this.max - this.min);
+    if (this.isVertical) {
+      this.cursor.y = this.length / 2 - ratio * this.length;
+    } else {
+      this.cursor.x = -this.length / 2 + ratio * this.length;
     }
+    
+    this.updateVisuals();
+  }
   
-    destroy() {
-        this.container.destroy();
-    }
+  getValue() {
+    return this.value;
+  }
+  
+  destroy() {
+    this.container.destroy();
+  }
 }
