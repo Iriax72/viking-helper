@@ -26,6 +26,36 @@ const game = new Phaser.Game(config);
 
 function preload () {}
 
-function create () {}
+function create () {
+
+    // Ressources
+    const ressources = ["OR", "PRISONNIERS", "MOUTONS", "FORCES ARMÉE"];
+
+    let ressourcesCounters = [];
+    ressources.forEach((ressource) => {
+        ressourcesCounters.append(new Counter(
+            this,
+            {
+                x: window.innerWidth - 50,
+                y: ressources.indexOf(ressource) * 40 + 80
+            },
+            ressource,
+            0,
+            [0]
+        ));
+    });
+
+    // Gloire
+    const glory = new Jauge(
+        this,
+        {x: 50, y: window.innerHeight/2},
+        [0, 25],
+        {
+            color: 0x444444,
+            isVertical: true,
+            length: 400
+        }
+    )
+}
 
 function update () {}

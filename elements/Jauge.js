@@ -1,5 +1,5 @@
 export class Jauge {
-  constructor(scene, coos, bornes, params={}) {
+  constructor(scene, coos, bornes, params={}) { // params can contain color, isVertical and length
     this.scene = scene;
     this.x = coos.x;
     this.y = coos.y;
