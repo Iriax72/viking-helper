@@ -1,12 +1,13 @@
 export class CardDeck extends Phaser.GameObjects.Container {
-    constructor(scene, coos, name, cards, onCardChosen) {
+    constructor(scene, coos, name, deck, onCardChosen, recycle = true) {
         super(scene, coos.x, coos.y);
         
         this.scene = scene;
-        this.name = name;
-        this.deck = cards;
-        this.defausse = [];
+        this.deckName = name; // Nom personnalisable du deck
+        this.deck = [...deck]; // Copie du deck initial
+        this.defausse = []; // Pile de défausse
         this.onCardChosen = onCardChosen; // Callback pour savoir quelle carte a été choisie
+        this.recycle = recycle; // Détermine si le deck se recycle automatiquement
         this.isDrawing = false;
         
         // Créer le paquet de cartes
@@ -22,11 +23,13 @@ export class CardDeck extends Phaser.GameObjects.Container {
         this.deckBackground.setStrokeStyle(3, 0xecf0f1);
         this.deckBackground.setInteractive({ useHandCursor: true });
         
-        // Texte indicatif
-        this.deckText = this.scene.add.text(0, 0, this.name, {
+        // Texte personnalisable
+        this.deckText = this.scene.add.text(0, 0, this.deckName, {
             fontSize: '16px',
             color: '#ecf0f1',
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            align: 'center',
+            wordWrap: { width: 90 }
         }).setOrigin(0.5);
         
         this.add([this.deckBackground, this.deckText]);
@@ -37,7 +40,43 @@ export class CardDeck extends Phaser.GameObjects.Container {
     
     drawCards() {
         if (this.isDrawing) return;
+        
+        // Vérifier si le deck est vide et mélanger si nécessaire
+        if (this.deck.length === 0) {
+            if (this.recycle) {
+                this.deck = [...this.defausse];
+                this.defausse = [];
+            } else {
+                console.warn('Deck épuisé et recyclage désactivé');
+                return;
+            }
+        }
+        
+        // Vérifier qu'il y a au moins une carte
+        if (this.deck.length === 0) {
+            console.warn('Pas de cartes disponibles');
+            return;
+        }
+        
         this.isDrawing = true;
+        
+        // Piocher la première carte
+        const card1Label = this.drawRandomCard();
+        
+        // Si le deck est vide après la première pioche, recycler si activé
+        if (this.deck.length === 0) {
+            if (this.recycle) {
+                this.deck = [...this.defausse];
+                this.defausse = [];
+            } else {
+                console.warn('Deck épuisé et recyclage désactivé');
+                this.isDrawing = false;
+                return;
+            }
+        }
+        
+        // Piocher la deuxième carte
+        const card2Label = this.drawRandomCard();
         
         // Créer l'overlay d'assombrissement
         this.overlay = this.scene.add.rectangle(
@@ -54,12 +93,9 @@ export class CardDeck extends Phaser.GameObjects.Container {
         // Créer deux cartes
         const centerX = this.scene.cameras.main.width / 2;
         const centerY = this.scene.cameras.main.height / 2;
-
-        const rdmCard1 = this.deck[Math.floor(Math.random() * this.deck.length)];
-        this.deck.
         
-        this.card1 = this.createCard(centerX - 120, centerY, rdmCard1, 0xe74c3c);
-        this.card2 = this.createCard(centerX + 120, centerY, rdmCard2, 0x3498db);
+        this.card1 = this.createCard(centerX - 120, centerY, card1Label, 0xe74c3c);
+        this.card2 = this.createCard(centerX + 120, centerY, card2Label, 0x3498db);
         
         // Animation d'apparition
         this.card1.setScale(0);
@@ -81,6 +117,16 @@ export class CardDeck extends Phaser.GameObjects.Container {
         });
     }
     
+    drawRandomCard() {
+        // Choisir un index aléatoire
+        const randomIndex = Phaser.Math.Between(0, this.deck.length - 1);
+        
+        // Retirer la carte du deck
+        const card = this.deck.splice(randomIndex, 1)[0];
+        
+        return card;
+    }
+    
     createCard(x, y, label, color) {
         const card = this.scene.add.container(x, y);
         card.setDepth(101);
@@ -91,9 +137,11 @@ export class CardDeck extends Phaser.GameObjects.Container {
         
         // Texte de la carte
         const text = this.scene.add.text(0, 0, label, {
-            fontSize: '20px',
+            fontSize: '18px',
             color: '#ffffff',
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            align: 'center',
+            wordWrap: { width: 130 }
         }).setOrigin(0.5);
         
         card.add([bg, text]);
@@ -131,6 +179,15 @@ export class CardDeck extends Phaser.GameObjects.Container {
     selectCard(selectedCard) {
         const chosenCard = selectedCard.getData('label');
         
+        // Ajouter la carte choisie à la défausse
+        this.defausse.push(chosenCard);
+        
+        // Ajouter l'autre carte à la défausse aussi
+        const otherCard = selectedCard === this.card1 ? 
+            this.card2.getData('label') : 
+            this.card1.getData('label');
+        this.defausse.push(otherCard);
+        
         // Appeler le callback avec la carte choisie
         if (this.onCardChosen) {
             this.onCardChosen(chosenCard);
@@ -163,3 +220,44 @@ export class CardDeck extends Phaser.GameObjects.Container {
         });
     }
 }
+
+// Exemple d'utilisation :
+/*
+class GameScene extends Phaser.Scene {
+    constructor() {
+        super('GameScene');
+    }
+    
+    create() {
+        // Définir les cartes du deck
+        const cartes = [
+            'Attaque', 'Défense', 'Soin', 'Magie',
+            'Épée', 'Bouclier', 'Potion', 'Sort'
+        ];
+        
+        // Créer le deck avec recyclage activé (par défaut)
+        this.deck = new CardDeck(
+            this, 
+            { x: 100, y: 100 }, 
+            'DECK\nPRINCIPAL', 
+            cartes, 
+            (chosenCard) => {
+                console.log('Carte choisie:', chosenCard);
+                console.log('Cartes restantes:', this.deck.deck.length);
+                console.log('Défausse:', this.deck.defausse.length);
+            },
+            true // recyclage activé (peut être omis car true par défaut)
+        );
+        
+        // Exemple avec recyclage désactivé :
+        // this.deckNoRecycle = new CardDeck(
+        //     this, 
+        //     { x: 250, y: 100 }, 
+        //     'DECK\nUNIQUE', 
+        //     cartes, 
+        //     (chosenCard) => { console.log('Carte choisie:', chosenCard); },
+        //     false // recyclage désactivé
+        // );
+    }
+}
+*/
