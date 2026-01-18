@@ -2,6 +2,7 @@ import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
 import {ToggleSquare} from "./elements/ToggleSquare.js";
 import {CardDeck} from "./elements/CardDeck.js";
+import {Counter} from "./elements/Counter.js";
 
 const gameContainer = document.body;
 
@@ -68,6 +69,14 @@ function create () {
             alert("Carte choisie = " + chosenCard);
         }
     )
+
+    const counter = new Counter(
+        this,
+        {x: 400, y: 550},
+        "GOLD",
+        2,
+        [0]
+    );
 }
 
 function update () {
