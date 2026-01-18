@@ -36,8 +36,8 @@ function create () {
         ressourcesCounters.push(new Counter(
             this,
             {
-                x: window.innerWidth - 50,
-                y: ressources.indexOf(ressource) * 80 + 80
+                x: window.innerWidth - 100,
+                y: ressources.indexOf(ressource) * 80 + window.innerHeight/2 - 120
             },
             ressource,
             0,
