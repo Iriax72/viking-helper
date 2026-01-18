@@ -50,7 +50,9 @@ function create () {
 
     const deck = new CardDeck(
         this, 
-        340, 300, 
+        {x: 340, y: 300},
+        "TECHNOLOGIES",
+        ["CARTE 1", " NO 2", "La 3 stp", "4 ?", "Voila: 5"],
         (chosenCard) => {
             alert('carte choisie: ' + chosenCard)
         }

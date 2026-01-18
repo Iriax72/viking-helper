@@ -1,11 +1,11 @@
-class CardDeck extends Phaser.GameObjects.Container {
-    constructor(scene, coos, name, deck, onCardChosen) {
+export class CardDeck extends Phaser.GameObjects.Container {
+    constructor(scene, coos, name, cards, onCardChosen) {
         super(scene, coos.x, coos.y);
         
         this.scene = scene;
-        this.deckName = name; // Nom personnalisable du deck
-        this.deck = [...deck]; // Copie du deck initial
-        this.defausse = []; // Pile de défausse
+        this.name = name;
+        this.deck = cards;
+        this.defausse = [];
         this.onCardChosen = onCardChosen; // Callback pour savoir quelle carte a été choisie
         this.isDrawing = false;
         
@@ -22,13 +22,11 @@ class CardDeck extends Phaser.GameObjects.Container {
         this.deckBackground.setStrokeStyle(3, 0xecf0f1);
         this.deckBackground.setInteractive({ useHandCursor: true });
         
-        // Texte personnalisable
-        this.deckText = this.scene.add.text(0, 0, this.deckName, {
+        // Texte indicatif
+        this.deckText = this.scene.add.text(0, 0, this.name, {
             fontSize: '16px',
             color: '#ecf0f1',
-            fontStyle: 'bold',
-            align: 'center',
-            wordWrap: { width: 90 }
+            fontStyle: 'bold'
         }).setOrigin(0.5);
         
         this.add([this.deckBackground, this.deckText]);
@@ -39,24 +37,7 @@ class CardDeck extends Phaser.GameObjects.Container {
     
     drawCards() {
         if (this.isDrawing) return;
-        
-        // Vérifier si le deck est vide et mélanger si nécessaire
-        if (this.deck.length === 0) {
-            this.deck = [...this.defausse];
-            this.defausse = [];
-        }
-        
-        // Vérifier qu'il y a assez de cartes
-        if (this.deck.length < 2) {
-            console.warn('Pas assez de cartes dans le deck');
-            return;
-        }
-        
         this.isDrawing = true;
-        
-        // Piocher deux cartes aléatoires
-        const card1Label = this.drawRandomCard();
-        const card2Label = this.drawRandomCard();
         
         // Créer l'overlay d'assombrissement
         this.overlay = this.scene.add.rectangle(
@@ -73,9 +54,12 @@ class CardDeck extends Phaser.GameObjects.Container {
         // Créer deux cartes
         const centerX = this.scene.cameras.main.width / 2;
         const centerY = this.scene.cameras.main.height / 2;
+
+        const rdmCard1 = this.deck[Math.floor(Math.random() * this.deck.length)];
+        this.deck.
         
-        this.card1 = this.createCard(centerX - 120, centerY, card1Label, 0xe74c3c);
-        this.card2 = this.createCard(centerX + 120, centerY, card2Label, 0x3498db);
+        this.card1 = this.createCard(centerX - 120, centerY, rdmCard1, 0xe74c3c);
+        this.card2 = this.createCard(centerX + 120, centerY, rdmCard2, 0x3498db);
         
         // Animation d'apparition
         this.card1.setScale(0);
@@ -97,16 +81,6 @@ class CardDeck extends Phaser.GameObjects.Container {
         });
     }
     
-    drawRandomCard() {
-        // Choisir un index aléatoire
-        const randomIndex = Phaser.Math.Between(0, this.deck.length - 1);
-        
-        // Retirer la carte du deck
-        const card = this.deck.splice(randomIndex, 1)[0];
-        
-        return card;
-    }
-    
     createCard(x, y, label, color) {
         const card = this.scene.add.container(x, y);
         card.setDepth(101);
@@ -117,11 +91,9 @@ class CardDeck extends Phaser.GameObjects.Container {
         
         // Texte de la carte
         const text = this.scene.add.text(0, 0, label, {
-            fontSize: '18px',
+            fontSize: '20px',
             color: '#ffffff',
-            fontStyle: 'bold',
-            align: 'center',
-            wordWrap: { width: 130 }
+            fontStyle: 'bold'
         }).setOrigin(0.5);
         
         card.add([bg, text]);
@@ -158,15 +130,6 @@ class CardDeck extends Phaser.GameObjects.Container {
     
     selectCard(selectedCard) {
         const chosenCard = selectedCard.getData('label');
-        
-        // Ajouter la carte choisie à la défausse
-        this.defausse.push(chosenCard);
-        
-        // Ajouter l'autre carte à la défausse aussi
-        const otherCard = selectedCard === this.card1 ? 
-            this.card2.getData('label') : 
-            this.card1.getData('label');
-        this.defausse.push(otherCard);
         
         // Appeler le callback avec la carte choisie
         if (this.onCardChosen) {
