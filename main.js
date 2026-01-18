@@ -37,7 +37,7 @@ function create () {
             this,
             {
                 x: window.innerWidth - 50,
-                y: ressources.indexOf(ressource) * 40 + 80
+                y: ressources.indexOf(ressource) * 80 + 80
             },
             ressource,
             0,

@@ -3,9 +3,9 @@ export class Jauge {
     this.scene = scene;
     this.x = coos.x;
     this.y = coos.y;
-    this.min = bornes.min;
-    this.max = bornes.max;
-    this.value = Math.round(bornes.min);
+    this.min = bornes[0];
+    this.max = bornes[1];
+    this.value = Math.round(bornes[0]);
     this.color = params.color ?? 0x333333;
     this.isVertical = params.isVertical ?? false;
     
