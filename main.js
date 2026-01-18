@@ -54,9 +54,20 @@ function create () {
         "TECHNOLOGIES",
         ["CARTE 1", " NO 2", "La 3 stp", "4 ?", "Voila: 5"],
         (chosenCard) => {
-            alert('carte choisie: ' + chosenCard)
-        }
+            alert('carte choisie: ' + chosenCard);
+        },
+        false
     );
+
+    const otherDeck = new CardDeck(
+        this,
+        {x: 360, y: 420},
+        "WIN !!",
+        ["win1", "win2", "win3", "win4", "win5", "win6", "win7"],
+        (chosenCard) => {
+            alert("Carte choisie = " + chosenCard);
+        }
+    )
 }
 
 function update () {
