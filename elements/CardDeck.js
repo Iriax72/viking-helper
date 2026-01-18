@@ -1,4 +1,4 @@
-class CardDeck extends Phaser.GameObjects.Container {
+export class CardDeck extends Phaser.GameObjects.Container {
     constructor(scene, coos, name, deck, onCardChosen) {
         super(scene, coos.x, coos.y);
         
