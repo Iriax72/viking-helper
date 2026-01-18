@@ -1,6 +1,7 @@
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
 import {ToggleSquare} from "./elements/ToggleSquare.js";
+import {CardDeck} from "./elements/CardDeck.js";
 
 const gameContainer = document.body;
 
@@ -44,6 +45,14 @@ function create () {
         {
             initialState: true,
             size: 65
+        }
+    );
+
+    const deck = new CardDeck(
+        this, 
+        340, 300, 
+        (chosenCard) => {
+            alert('carte choisie: ' + chosenCard)
         }
     );
 }
