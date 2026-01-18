@@ -33,7 +33,7 @@ function create () {
 
     let ressourcesCounters = [];
     ressources.forEach((ressource) => {
-        ressourcesCounters.append(new Counter(
+        ressourcesCounters.push(new Counter(
             this,
             {
                 x: window.innerWidth - 50,
