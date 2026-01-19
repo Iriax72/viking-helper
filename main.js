@@ -53,7 +53,7 @@ function create () {
         {
             color: 0xFFFF00,
             isVertical: true,
-            length: 400
+            length: window.innerHeight / 1.5
         }
     )
 }
