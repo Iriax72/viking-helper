@@ -1,5 +1,9 @@
-export class Jauge {
+export class Jauge extends Phaser.GameObjects.DOM {
   constructor(scene, coos, bornes, params={}) { // params can contain color, isVertical and length
+    const el = document.createElement('div');
+    super(scene, coos.x, coos.y, el);
+    scene.add.existing(this);
+
     this.scene = scene;
     this.x = coos.x;
     this.y = coos.y;
