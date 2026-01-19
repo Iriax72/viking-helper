@@ -6,7 +6,7 @@ export class Jauge {
     this.min = bornes[0];
     this.max = bornes[1];
     this.value = Math.round(bornes[0]);
-    this.color = params.color ?? 0x333333;
+    this.color = params.color ?? 0x00ff00;
     this.isVertical = params.isVertical ?? false;
     
     // Dimensions de la jauge
@@ -20,7 +20,7 @@ export class Jauge {
     
     // Fond de la jauge (rectangle arrondi)
     this.background = scene.add.graphics();
-    this.background.fillStyle(this.color);
+    this.background.fillStyle(0xcccccc);
     if (this.isVertical) {
       this.background.fillRoundedRect(
         -this.thickness / 2, -this.length / 2,
@@ -108,7 +108,7 @@ export class Jauge {
   updateVisuals() {
     // Effacer et redessiner la barre de remplissage
     this.fill.clear();
-    this.fill.fillStyle(0x00ff00);
+    this.fill.fillStyle(this.color);
     
     const ratio = (this.value - this.min) / (this.max - this.min);
     
