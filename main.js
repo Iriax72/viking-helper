@@ -81,7 +81,7 @@ function create () {
         toggles.push(new ToggleSquare(
             this,
             {
-                x: 320,
+                x: 350,
                 y: gods.indexOf(god) * 80 + window.innerHeight/2 - 150
             },
             god[0].toUpperCase() + god.slice(1),
