@@ -3,6 +3,7 @@ import {Dice} from "./elements/Dice.js";
 import {ToggleSquare} from "./elements/ToggleSquare.js";
 import {CardDeck} from "./elements/CardDeck.js";
 import {Counter} from "./elements/Counter.js";
+import { LevelCounter } from "./elements/LevelCounter.js";
 
 const gameContainer = document.body;
 
@@ -29,7 +30,7 @@ function preload () {}
 function create () {
 
     // Ressources
-    const ressources = ["OR", "PRISONNIERS", "MOUTONS", "FORCES ARMÉE"];
+    const ressources = ["or", "prisonniers", "moutons", "forces armées"];
 
     let ressourcesCounters = [];
     ressources.forEach((ressource) => {
@@ -39,7 +40,7 @@ function create () {
                 x: window.innerWidth - 100,
                 y: ressources.indexOf(ressource) * 80 + window.innerHeight/2 - 120
             },
-            ressource,
+            ressource.toUpperCase(),
             0,
             [0]
         ));
@@ -56,6 +57,22 @@ function create () {
             length: window.innerHeight / 1.5
         }
     )
+
+    // Batiments
+    const batiments = ["mairie", "port", "forge", "temple", "champ"];
+    const LevelCounters = [];
+    batiments.forEach((bat) => {
+        LevelCounters.push(new Counter(
+            this,
+            {
+                x: 100,
+                y: batiments.indexOf(bat) * 80 + window.innerHeight/2 - 150
+            },
+            bat.toUpperCase,
+            bat === "mairie" ? 1 : 0,
+            bat === "mairie" ? [1, 4] : [0, 4]
+        ));
+    });
 }
 
 function update () {}
