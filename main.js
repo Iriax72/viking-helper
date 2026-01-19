@@ -68,7 +68,7 @@ function create () {
                 x: 200,
                 y: batiments.indexOf(bat) * 80 + window.innerHeight/2 - 150
             },
-            bat.toUpperCase,
+            bat.toUpperCase(),
             bat === "mairie" ? 1 : 0,
             bat === "mairie" ? [1, 4] : [0, 4]
         ));
