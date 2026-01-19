@@ -12,9 +12,6 @@ const config = {
     width: window.innerWidth,
     height: window.innerHeight,
     parent: gameContainer,
-    dom: {
-        createContainer: true
-    },
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH
