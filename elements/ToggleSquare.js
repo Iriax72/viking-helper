@@ -1,5 +1,5 @@
 export class ToggleSquare {
-  constructor(scene, coos, params = {}) {
+  constructor(scene, coos, params = {/* size?, initialState? */}) {
     this.scene = scene;
     this.x = coos.x;
     this.y = coos.y;

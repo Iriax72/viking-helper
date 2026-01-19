@@ -73,6 +73,23 @@ function create () {
             bat === "mairie" ? [1, 4] : [0, 4]
         ));
     });
+
+    // Gods
+    const gods = ["odin", "njörd", "loki", "thor", "freyr"];
+    const toggles = [];
+    gods.forEach((god) => {
+        toggles.push(new ToggleSquare(
+            this,
+            {
+                x: 250,
+                y: gods.indexOf(god) * 80 + window.innerHeight/2 - 150
+            },
+            {
+                size: 50,
+                initialState: false
+            }
+        ));
+    });
 }
 
 function update () {}
