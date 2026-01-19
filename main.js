@@ -75,13 +75,13 @@ function create () {
     });
 
     // Gods
-    const gods = ["odin", "njörd", "loki", "thor", "freyr"];
+    const gods = ["odin", "njörd", "thor", "loki", "freyr"];
     const toggles = [];
     gods.forEach((god) => {
         toggles.push(new ToggleSquare(
             this,
             {
-                x: 400,
+                x: 320,
                 y: gods.indexOf(god) * 80 + window.innerHeight/2 - 150
             },
             god[0].toUpperCase() + god.slice(1),
