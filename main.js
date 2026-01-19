@@ -84,6 +84,7 @@ function create () {
                 x: 250,
                 y: gods.indexOf(god) * 80 + window.innerHeight/2 - 150
             },
+            god[0].toUpperCase() + god.slice(1),
             {
                 size: 50,
                 initialState: false

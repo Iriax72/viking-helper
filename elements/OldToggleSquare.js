@@ -1,43 +1,24 @@
 export class ToggleSquare {
-  constructor(scene, coos, label, params = {}) {
+  constructor(scene, coos, params = {/* size?, initialState? */}) {
     this.scene = scene;
     this.x = coos.x;
     this.y = coos.y;
-    this.label = label;
     this.size = params.size || 60;
     this.state = params.initialState || false;
     
     // Conteneur pour tous les éléments
     this.container = scene.add.container(this.x, this.y);
     
-    // Texte du label (à gauche)
-    this.labelText = scene.add.text(0, 0, this.label, {
-      fontSize: '18px',
-      color: '#ffffff'
-    });
-    this.labelText.setOrigin(1, 0.5);
-    this.container.add(this.labelText);
-    
-    // Calculer la position du carré (à droite du label avec un espacement)
-    const spacing = 10;
-    this.squareOffsetX = this.labelText.width + spacing + this.size / 2;
-    
     // Graphique pour le carré
     this.square = scene.add.graphics();
-    this.square.x = this.squareOffsetX;
     this.container.add(this.square);
     
     // Graphique pour le symbole (✓ ou ✗)
     this.symbol = scene.add.graphics();
-    this.symbol.x = this.squareOffsetX;
     this.container.add(this.symbol);
     
-    // Zone interactive (seulement sur le carré)
-    this.hitArea = scene.add.rectangle(
-      this.squareOffsetX, 0, 
-      this.size, this.size, 
-      0x000000, 0
-    );
+    // Zone interactive
+    this.hitArea = scene.add.rectangle(0, 0, this.size, this.size, 0x000000, 0);
     this.hitArea.setInteractive({ useHandCursor: true });
     this.container.add(this.hitArea);
     
@@ -115,11 +96,10 @@ export class ToggleSquare {
     this.state = !this.state;
     this.draw();
     
-    // Animation de feedback (seulement sur le carré)
+    // Animation de feedback
     this.scene.tweens.add({
-      targets: [this.square, this.symbol],
-      scaleX: 0.9,
-      scaleY: 0.9,
+      targets: this.container,
+      scale: 0.9,
       duration: 100,
       yoyo: true,
       ease: 'Power2'
@@ -137,9 +117,8 @@ export class ToggleSquare {
   
   onHover() {
     this.scene.tweens.add({
-      targets: [this.square, this.symbol],
-      scaleX: 1.05,
-      scaleY: 1.05,
+      targets: this.container,
+      scale: 1.05,
       duration: 100,
       ease: 'Power2'
     });
@@ -147,9 +126,8 @@ export class ToggleSquare {
   
   onOut() {
     this.scene.tweens.add({
-      targets: [this.square, this.symbol],
-      scaleX: 1,
-      scaleY: 1,
+      targets: this.container,
+      scale: 1,
       duration: 100,
       ease: 'Power2'
     });
