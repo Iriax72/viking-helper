@@ -65,7 +65,7 @@ function create () {
         LevelCounters.push(new Counter(
             this,
             {
-                x: 100,
+                x: 200,
                 y: batiments.indexOf(bat) * 80 + window.innerHeight/2 - 150
             },
             bat.toUpperCase,
