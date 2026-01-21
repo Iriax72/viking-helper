@@ -4,6 +4,7 @@ import {ToggleSquare} from "./elements/ToggleSquare.js";
 import {CardDeck} from "./elements/CardDeck.js";
 import {Counter} from "./elements/Counter.js";
 import { LevelCounter } from "./elements/LevelCounter.js";
+import { Separateur } from "./elements/Separateur.js";
 
 const gameContainer = document.body;
 
@@ -28,6 +29,7 @@ const game = new Phaser.Game(config);
 function preload () {}
 
 function create () {
+    const separateurs = [];
 
     // Ressources
     const ressources = ["or", "prisonniers", "moutons", "forces armées"];
@@ -57,6 +59,8 @@ function create () {
             length: window.innerHeight / 1.5
         }
     )
+
+    separateurs.push(new Separateur(this, 'vertical', {x: 125}));
 
     // Batiments
     const batiments = ["mairie", "port", "forge", "temple", "champ"];
@@ -91,6 +95,8 @@ function create () {
             }
         ));
     });
+
+    separateurs.push(new Separateur(this, 'vertical', {x: 400}));
 }
 
 function update () {}
