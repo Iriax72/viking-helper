@@ -73,8 +73,8 @@ function create () {
                 y: batiments.indexOf(bat) * 80 + window.innerHeight/2 - 150
             },
             bat.toUpperCase(),
-            bat === "mairie" ? 1 : 0,
-            bat === "mairie" ? [1, 4] : [0, 4]
+            (bat === "mairie" || bat === "port") ? 1 : 0,
+            (bat === "mairie" || bat === "port") ? [1, 4] : [0, 4]
         ));
     });
 
