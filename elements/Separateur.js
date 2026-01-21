@@ -21,12 +21,12 @@ export class Separateur {
         this.graphic.lineStyle(2, this.color, 1);
 
         if (this.orientation === 'horizontal') {
-            const length = this.length ?? window.innerWidth;
+            const length = this.length ?? 10000; // Grande valeur pour etre sur
             this.graphic.moveTo(this.coos.x, this.coos.y);
             this.graphic.lineTo(this.coos.x + length, this.coos.y);
             this.graphic.strokePath();
         } else if (this.orientation === 'vertical') {
-            const length = this.length ?? window.innerHeight;
+            const length = this.length ?? 10000; // Grande valeur pour etre sur
             this.graphic.moveTo(this.coos.x, this.coos.y);
             this.graphic.lineTo(this.coos.x, this.coos.y + length);
             this.graphic.strokePath();
