@@ -60,7 +60,7 @@ function create () {
         }
     )
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 95}));
+    separateurs.push(new Separateur(this, 'vertical', {x: 105}));
 
     // Batiments
     const batiments = ["mairie", "port", "forge", "temple", "champ"];
@@ -96,7 +96,7 @@ function create () {
         ));
     });
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 500}));
+    separateurs.push(new Separateur(this, 'vertical', {x: 475}));
 }
 
 function update () {}
