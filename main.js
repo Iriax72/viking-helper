@@ -53,7 +53,7 @@ function create () {
     // Gloire
     const glory = new Jauge(
         this,
-        {x: 50, y: window.innerHeight/2},
+        {x: 30, y: window.innerHeight/2},
         [0, 25],
         {
             color: 0xFFFF00,
@@ -62,7 +62,7 @@ function create () {
         }
     )
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 105}));
+    separateurs.push(new Separateur(this, 'vertical', {x: 85}));
 
     // Batiments
     const batiments = ["mairie", "port", "forge", "temple", "champ"];
@@ -71,7 +71,7 @@ function create () {
         LevelCounters.push(new Counter(
             this,
             {
-                x: 200,
+                x: 180,
                 y: batiments.indexOf(bat) * 80 + window.innerHeight/2 - 150
             },
             bat.toUpperCase(),
@@ -87,7 +87,7 @@ function create () {
         toggles.push(new ToggleSquare(
             this,
             {
-                x: 350,
+                x: 310,
                 y: gods.indexOf(god) * 80 + window.innerHeight/2 - 150
             },
             god[0].toUpperCase() + god.slice(1),
@@ -98,14 +98,14 @@ function create () {
         ));
     });
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 475}));
+    separateurs.push(new Separateur(this, 'vertical', {x: 435}));
 
     // Combat
-    const dice = new Dice(this, 510, 35);
+    const dice = new Dice(this, 470, 35);
 
     const winDeck = new CardDeck(
         this,
-        {x: 510, y: 115},
+        {x: 470, y: 115},
         "carte victoire",
         winCards,
         true
@@ -113,13 +113,13 @@ function create () {
 
     const loseDeck = new CardDeck(
         this,
-        {x: 510, y: 195},
+        {x: 470, y: 195},
         "carte défaite",
         loseCards,
         true
     );
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 560}));
+    separateurs.push(new Separateur(this, 'vertical', {x: 530}));
 }
 
 function update () {}
