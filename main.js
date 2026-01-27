@@ -171,25 +171,25 @@ function checkOrientation() {
 function hideContent() {
     // Masquer tous les éléments créés
     gameElements.ressourcesCounters.forEach(counter => counter.setVisible(false));
-    if (gameElements.glory) gameElements.glory.setVisible(false);
+    if (gameElements.glory) gameElements.glory.container.setVisible(false);
     gameElements.levelCounters.forEach(counter => counter.setVisible(false));
-    gameElements.toggles.forEach(toggle => toggle.setVisible(false));
-    if (gameElements.dice) gameElements.dice.setVisible(false);
+    gameElements.toggles.forEach(toggle => toggle.container.setVisible(false));
+    if (gameElements.dice) gameElements.dice.container.setVisible(false);
     if (gameElements.winDeck) gameElements.winDeck.setVisible(false);
     if (gameElements.loseDeck) gameElements.loseDeck.setVisible(false);
-    gameElements.separateurs.forEach(sep => sep.setVisible(false));
+    gameElements.separateurs.forEach(sep => sep.graphic.setVisible(false));
 }
 
 function showContent() {
     // Afficher tous les éléments créés
     gameElements.ressourcesCounters.forEach(counter => counter.setVisible(true));
-    if (gameElements.glory) gameElements.glory.setVisible(true);
+    if (gameElements.glory) gameElements.glory.container.setVisible(true);
     gameElements.levelCounters.forEach(counter => counter.setVisible(true));
-    gameElements.toggles.forEach(toggle => toggle.setVisible(true));
-    if (gameElements.dice) gameElements.dice.setVisible(true);
+    gameElements.toggles.forEach(toggle => toggle.container.setVisible(true));
+    if (gameElements.dice) gameElements.dice.container.setVisible(true);
     if (gameElements.winDeck) gameElements.winDeck.setVisible(true);
     if (gameElements.loseDeck) gameElements.loseDeck.setVisible(true);
-    gameElements.separateurs.forEach(sep => sep.setVisible(true));
+    gameElements.separateurs.forEach(sep => sep.graphic.setVisible(true));
 }
 
 function printMessage() {
