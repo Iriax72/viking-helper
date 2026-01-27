@@ -170,26 +170,26 @@ function checkOrientation() {
 
 function hideContent() {
     // Masquer tous les éléments créés
-    gameElements.ressourcesCounters.forEach(counter => counter.container.setVisible(false));
-    if (gameElements.glory) gameElements.glory.container.setVisible(false);
-    gameElements.levelCounters.forEach(counter => counter.container.setVisible(false));
-    gameElements.toggles.forEach(toggle => toggle.container.setVisible(false));
-    if (gameElements.dice) gameElements.dice.container.setVisible(false);
-    if (gameElements.winDeck) gameElements.winDeck.container.setVisible(false);
-    if (gameElements.loseDeck) gameElements.loseDeck.container.setVisible(false);
-    gameElements.separateurs.forEach(sep => sep.container.setVisible(false));
+    gameElements.ressourcesCounters.forEach(counter => counter.setVisible(false));
+    if (gameElements.glory) gameElements.glory.setVisible(false);
+    gameElements.levelCounters.forEach(counter => counter.setVisible(false));
+    gameElements.toggles.forEach(toggle => toggle.setVisible(false));
+    if (gameElements.dice) gameElements.dice.setVisible(false);
+    if (gameElements.winDeck) gameElements.winDeck.setVisible(false);
+    if (gameElements.loseDeck) gameElements.loseDeck.setVisible(false);
+    gameElements.separateurs.forEach(sep => sep.setVisible(false));
 }
 
 function showContent() {
     // Afficher tous les éléments créés
-    gameElements.ressourcesCounters.forEach(counter => counter.container.setVisible(true));
-    if (gameElements.glory) gameElements.glory.container.setVisible(true);
-    gameElements.levelCounters.forEach(counter => counter.container.setVisible(true));
-    gameElements.toggles.forEach(toggle => toggle.container.setVisible(true));
-    if (gameElements.dice) gameElements.dice.container.setVisible(true);
-    if (gameElements.winDeck) gameElements.winDeck.container.setVisible(true);
-    if (gameElements.loseDeck) gameElements.loseDeck.container.setVisible(true);
-    gameElements.separateurs.forEach(sep => sep.container.setVisible(true));
+    gameElements.ressourcesCounters.forEach(counter => counter.setVisible(true));
+    if (gameElements.glory) gameElements.glory.setVisible(true);
+    gameElements.levelCounters.forEach(counter => counter.setVisible(true));
+    gameElements.toggles.forEach(toggle => toggle.setVisible(true));
+    if (gameElements.dice) gameElements.dice.setVisible(true);
+    if (gameElements.winDeck) gameElements.winDeck.setVisible(true);
+    if (gameElements.loseDeck) gameElements.loseDeck.setVisible(true);
+    gameElements.separateurs.forEach(sep => sep.setVisible(true));
 }
 
 function printMessage() {
