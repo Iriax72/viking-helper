@@ -1,4 +1,4 @@
-import {winCards, loseCards} from "./datas.js";
+import {winCards, loseCards, ressources} from "./datas.js";
 
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
@@ -33,16 +33,14 @@ function preload () {}
 function create () {
     const separateurs = [];
 
-    // Ressources
-    const ressources = ["or", "prisonniers", "moutons", "forces armées"];
-
+    // Ressources (haut à droite)
     let ressourcesCounters = [];
     ressources.forEach((ressource) => {
         ressourcesCounters.push(new Counter(
             this,
             {
-                x: window.innerWidth - 100,
-                y: ressources.indexOf(ressource) * 80 + window.innerHeight/2 - 120
+                x: window.innerWidth - 120,
+                y: 40 + ressources.indexOf(ressource) * 60
             },
             ressource.toUpperCase(),
             0,
@@ -50,10 +48,11 @@ function create () {
         ));
     });
 
-    // Gloire
+    // Gloire (zone gauche)
+    const gloryX = window.innerWidth * 0.08;
     const glory = new Jauge(
         this,
-        {x: 30, y: window.innerHeight/2},
+        {x: gloryX, y: window.innerHeight / 2},
         [0, 25],
         {
             color: 0xFFFF00,
@@ -62,17 +61,19 @@ function create () {
         }
     )
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 85}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.15}));
 
-    // Batiments
+    // Batiments (zone 2)
     const batiments = ["mairie", "port", "forge", "temple", "champ"];
     const LevelCounters = [];
+    const batimentsX = window.innerWidth * 0.28;
+    const batimentsStartY = window.innerHeight / 2 - 160;
     batiments.forEach((bat) => {
         LevelCounters.push(new Counter(
             this,
             {
-                x: 180,
-                y: batiments.indexOf(bat) * 80 + window.innerHeight/2 - 150
+                x: batimentsX,
+                y: batimentsStartY + batiments.indexOf(bat) * 70
             },
             bat.toUpperCase(),
             (bat === "mairie" || bat === "port") ? 1 : 0,
@@ -80,15 +81,19 @@ function create () {
         ));
     });
 
-    // Gods
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.4}));
+
+    // Gods (zone 3)
     const gods = ["odin", "njörd", "thor", "loki", "freyr"];
     const toggles = [];
+    const godsX = window.innerWidth * 0.53;
+    const godsStartY = window.innerHeight / 2 - 160;
     gods.forEach((god) => {
         toggles.push(new ToggleSquare(
             this,
             {
-                x: 310,
-                y: gods.indexOf(god) * 80 + window.innerHeight/2 - 150
+                x: godsX,
+                y: godsStartY + gods.indexOf(god) * 70
             },
             god[0].toUpperCase() + god.slice(1),
             {
@@ -98,14 +103,17 @@ function create () {
         ));
     });
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 435}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.65}));
 
-    // Combat
-    const dice = new Dice(this, 470, 35);
+    // Combat (zone droite)
+    const combatX = window.innerWidth * 0.78;
+    const combatStartY = window.innerHeight / 2 - 120;
+    
+    const dice = new Dice(this, combatX, combatStartY);
 
     const winDeck = new CardDeck(
         this,
-        {x: 470, y: 115},
+        {x: combatX, y: combatStartY + 90},
         "carte victoire",
         winCards,
         true
@@ -113,13 +121,13 @@ function create () {
 
     const loseDeck = new CardDeck(
         this,
-        {x: 470, y: 195},
+        {x: combatX, y: combatStartY + 160},
         "carte défaite",
         loseCards,
         true
     );
 
-    separateurs.push(new Separateur(this, 'vertical', {x: 530}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.92}));
 }
 
 function update () {}

@@ -13,3 +13,14 @@ export const loseCards = [
     "DÉFAITE !\nEffet No4",
     "DÉFAITE !\nEffet No5"
 ];
+
+export const ressources = [
+    "or",
+    "prisonniers",
+    "moutons",
+    "force armées"
+];
+
+// Batiments
+
+// Gods
