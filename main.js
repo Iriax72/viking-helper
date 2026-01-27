@@ -46,9 +46,15 @@ function create () {
 
     // vérifier l'orientation
     checkOrientation();
-    this.scale.on('resize', checkOrientation, this);
+    initializeGame.call(this);
+    this.scale.on('resize', () => {
+        destroyGame();
+        initializeGame.call(this);
+        checkOrientation();
+    }, this);
+}
 
-
+function initializeGame() {
     const separateurs = [];
 
     // Ressources (haut à droite)
@@ -153,7 +159,47 @@ function create () {
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.92}));
     gameElements.separateurs = separateurs;
+}
+
+function destroyGame() {
+    // Détruire tous les compteurs de ressources
+    gameElements.ressourcesCounters.forEach(counter => counter.destroy());
+    gameElements.ressourcesCounters = [];
     
+    // Détruire la jauge de gloire
+    if (gameElements.glory) {
+        gameElements.glory.container.destroy();
+        gameElements.glory = null;
+    }
+    
+    // Détruire tous les compteurs de bâtiments
+    gameElements.levelCounters.forEach(counter => counter.destroy());
+    gameElements.levelCounters = [];
+    
+    // Détruire tous les toggles des dieux
+    gameElements.toggles.forEach(toggle => toggle.container.destroy());
+    gameElements.toggles = [];
+    
+    // Détruire le dé
+    if (gameElements.dice) {
+        gameElements.dice.container.destroy();
+        gameElements.dice = null;
+    }
+    
+    // Détruire les decks de cartes
+    if (gameElements.winDeck) {
+        gameElements.winDeck.destroy();
+        gameElements.winDeck = null;
+    }
+    
+    if (gameElements.loseDeck) {
+        gameElements.loseDeck.destroy();
+        gameElements.loseDeck = null;
+    }
+    
+    // Détruire les séparateurs
+    gameElements.separateurs.forEach(sep => sep.graphic.destroy());
+    gameElements.separateurs = [];
 }
 
 function update () {}
