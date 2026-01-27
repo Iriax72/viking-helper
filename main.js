@@ -85,6 +85,7 @@ function initializeGame() {
             length: window.innerHeight / 1.5
         }
     )
+    gameElements.glory = glory;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.15}));
 
