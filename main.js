@@ -28,9 +28,27 @@ const config = {
 
 const game = new Phaser.Game(config);
 
+// Variables globales pour stocker les éléments du jeu
+let gameElements = {
+    ressourcesCounters: [],
+    glory: null,
+    levelCounters: [],
+    toggles: [],
+    dice: null,
+    winDeck: null,
+    loseDeck: null,
+    separateurs: []
+};
+
 function preload () {}
 
 function create () {
+
+    // vérifier l'orientation
+    checkOrientation();
+    this.scale.on('resize', checkOrientation, this);
+
+
     const separateurs = [];
 
     // Ressources (haut à droite)
@@ -47,6 +65,7 @@ function create () {
             [0]
         ));
     });
+    gameElements.ressourcesCounters = ressourcesCounters;
 
     // Gloire (zone gauche)
     const gloryX = window.innerWidth * 0.08;
@@ -80,6 +99,7 @@ function create () {
             (bat === "mairie" || bat === "port") ? [1, 4] : [0, 4]
         ));
     });
+    gameElements.levelCounters = LevelCounters;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.4}));
 
@@ -102,6 +122,7 @@ function create () {
             }
         ));
     });
+    gameElements.toggles = toggles;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.65}));
 
@@ -110,6 +131,7 @@ function create () {
     const combatStartY = window.innerHeight / 2 - 120;
     
     const dice = new Dice(this, combatX, combatStartY);
+    gameElements.dice = dice;
 
     const winDeck = new CardDeck(
         this,
@@ -118,6 +140,7 @@ function create () {
         winCards,
         true
     );
+    gameElements.winDeck = winDeck;
 
     const loseDeck = new CardDeck(
         this,
@@ -126,8 +149,74 @@ function create () {
         loseCards,
         true
     );
+    gameElements.loseDeck = loseDeck;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.92}));
+    gameElements.separateurs = separateurs;
+    
 }
 
 function update () {}
+
+function checkOrientation() {
+    if (window.innerWidth < window.innerHeight) {
+        hideContent();
+        printMessage();
+    } else {
+        showContent();
+        removeMessage();
+    }
+}
+
+function hideContent() {
+    // Masquer tous les éléments créés
+    gameElements.ressourcesCounters.forEach(counter => counter.container.setVisible(false));
+    if (gameElements.glory) gameElements.glory.container.setVisible(false);
+    gameElements.levelCounters.forEach(counter => counter.container.setVisible(false));
+    gameElements.toggles.forEach(toggle => toggle.container.setVisible(false));
+    if (gameElements.dice) gameElements.dice.container.setVisible(false);
+    if (gameElements.winDeck) gameElements.winDeck.container.setVisible(false);
+    if (gameElements.loseDeck) gameElements.loseDeck.container.setVisible(false);
+    gameElements.separateurs.forEach(sep => sep.container.setVisible(false));
+}
+
+function showContent() {
+    // Afficher tous les éléments créés
+    gameElements.ressourcesCounters.forEach(counter => counter.container.setVisible(true));
+    if (gameElements.glory) gameElements.glory.container.setVisible(true);
+    gameElements.levelCounters.forEach(counter => counter.container.setVisible(true));
+    gameElements.toggles.forEach(toggle => toggle.container.setVisible(true));
+    if (gameElements.dice) gameElements.dice.container.setVisible(true);
+    if (gameElements.winDeck) gameElements.winDeck.container.setVisible(true);
+    if (gameElements.loseDeck) gameElements.loseDeck.container.setVisible(true);
+    gameElements.separateurs.forEach(sep => sep.container.setVisible(true));
+}
+
+function printMessage() {
+    // Afficher un message d'orientation
+    const messageDiv = document.createElement('div');
+    messageDiv.id = 'orientation-message';
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        text-align: center;
+        z-index: 1000;
+    `;
+    messageDiv.textContent = 'Veuillez utiliser l\'application en mode paysage';
+    document.body.appendChild(messageDiv);
+}
+
+function removeMessage() {
+    // Supprimer le message d'orientation
+    const messageDiv = document.getElementById('orientation-message');
+    if (messageDiv) {
+        messageDiv.remove();
+    }
+}
