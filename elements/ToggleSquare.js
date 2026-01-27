@@ -19,7 +19,7 @@ export class ToggleSquare {
     this.container.add(this.labelText);
     
     // Calculer la position du carré (à droite du label avec un espacement)
-    const spacing = 5;
+    const spacing = 2;
     this.squareOffsetX = this.labelText.width + spacing + this.size / 2;
     
     // Graphique pour le carré
