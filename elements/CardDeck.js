@@ -1,5 +1,5 @@
 export class CardDeck extends Phaser.GameObjects.Container {
-    constructor(scene, coos, name, deck, onCardChosen, recycle = true) {
+    constructor(scene, coos, name, deck, recycle = true, onCardChosen = null) {
         super(scene, coos.x, coos.y);
         
         this.scene = scene;

@@ -1,3 +1,5 @@
+import {winCards, loseCards} from "./datas.js";
+
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
 import {ToggleSquare} from "./elements/ToggleSquare.js";
@@ -97,6 +99,27 @@ function create () {
     });
 
     separateurs.push(new Separateur(this, 'vertical', {x: 475}));
+
+    // Combat
+    const dice = new Dice(this, 510, 35);
+
+    const winDeck = new CardDeck(
+        this,
+        {x: 510, y: 115},
+        "carte victoire",
+        winCards,
+        true
+    );
+
+    const loseDeck = new CardDeck(
+        this,
+        {x: 510, y: 195},
+        "carte défaite",
+        loseCards,
+        true
+    );
+
+    separateurs.push(new Separateur(this, 'vertical', {x: 560}));
 }
 
 function update () {}
