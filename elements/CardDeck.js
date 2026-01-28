@@ -19,17 +19,17 @@ export class CardDeck extends Phaser.GameObjects.Container {
     
     createDeck() {
         // Fond du paquet
-        this.deckBackground = this.scene.add.rectangle(0, 0, 100, 140, 0x2c3e50);
-        this.deckBackground.setStrokeStyle(3, 0xecf0f1);
+        this.deckBackground = this.scene.add.rectangle(0, 0, 70, 100, 0x2c3e50);
+        this.deckBackground.setStrokeStyle(2, 0xecf0f1);
         this.deckBackground.setInteractive({ useHandCursor: true });
         
         // Texte personnalisable
         this.deckText = this.scene.add.text(0, 0, this.deckName, {
-            fontSize: '16px',
+            fontSize: '12px',
             color: '#ecf0f1',
             fontStyle: 'bold',
             align: 'center',
-            wordWrap: { width: 90 }
+            wordWrap: { width: 60 }
         }).setOrigin(0.5);
         
         this.add([this.deckBackground, this.deckText]);
@@ -96,8 +96,8 @@ export class CardDeck extends Phaser.GameObjects.Container {
         
         if (card2Label !== null) {
             // Deux cartes : affichage normal
-            this.card1 = this.createCard(centerX - 120, centerY, card1Label, 0xe74c3c);
-            this.card2 = this.createCard(centerX + 120, centerY, card2Label, 0x3498db);
+            this.card1 = this.createCard(centerX - 90, centerY, card1Label, 0xe74c3c);
+            this.card2 = this.createCard(centerX + 90, centerY, card2Label, 0x3498db);
             
             this.card1.setScale(0);
             this.card2.setScale(0);
@@ -147,21 +147,21 @@ export class CardDeck extends Phaser.GameObjects.Container {
         card.setDepth(101);
         
         // Fond de la carte
-        const bg = this.scene.add.rectangle(0, 0, 150, 200, color);
-        bg.setStrokeStyle(4, 0xffffff);
+        const bg = this.scene.add.rectangle(0, 0, 110, 150, color);
+        bg.setStrokeStyle(3, 0xffffff);
         
         // Texte de la carte
         const text = this.scene.add.text(0, 0, label, {
-            fontSize: '18px',
+            fontSize: '14px',
             color: '#ffffff',
             fontStyle: 'bold',
             align: 'center',
-            wordWrap: { width: 130 }
+            wordWrap: { width: 95 }
         }).setOrigin(0.5);
         
         card.add([bg, text]);
         card.setInteractive(
-            new Phaser.Geom.Rectangle(-75, -100, 150, 200),
+            new Phaser.Geom.Rectangle(-55, -75, 110, 150),
             Phaser.Geom.Rectangle.Contains
         );
         card.setData('label', label);
