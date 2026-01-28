@@ -10,17 +10,20 @@ export class ToggleSquare {
     // Conteneur pour tous les éléments
     this.container = scene.add.container(this.x, this.y);
     
-    // Texte du label (à gauche)
+    // Texte du label (à gauche) avec largeur fixe
+    const labelWidth = 60;
     this.labelText = scene.add.text(0, 0, this.label, {
       fontSize: '18px',
-      color: '#ffffff'
+      color: '#ffffff',
+      align: 'right'
     });
     this.labelText.setOrigin(1, 0.5);
+    this.labelText.setFixedSize(labelWidth, 0);
     this.container.add(this.labelText);
     
     // Calculer la position du carré (à droite du label avec un espacement)
-    const spacing = 2;
-    this.squareOffsetX = this.labelText.width + spacing + this.size / 2;
+    const spacing = 10;
+    this.squareOffsetX = spacing + this.size / 2;
     
     // Graphique pour le carré
     this.square = scene.add.graphics();
