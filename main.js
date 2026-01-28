@@ -120,7 +120,7 @@ function initializeGame() {
             this,
             {
                 x: godsX,
-                y: godsStartY + gods.indexOf(god) * 60
+                y: godsStartY + gods.indexOf(god) * 70
             },
             god[0].toUpperCase() + god.slice(1),
             {
@@ -131,10 +131,10 @@ function initializeGame() {
     });
     gameElements.toggles = toggles;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.63}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.6}));
 
     // Combat (zone droite) - 10% de la largeur
-    const combatX = window.innerWidth * 0.73;
+    const combatX = window.innerWidth * 0.70;
     const combatStartY = window.innerHeight / 2 - 120;
     
     const dice = new Dice(this, combatX, combatStartY);
@@ -158,7 +158,7 @@ function initializeGame() {
     );
     gameElements.loseDeck = loseDeck;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.87}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.85}));
     gameElements.separateurs = separateurs;
 }
 
