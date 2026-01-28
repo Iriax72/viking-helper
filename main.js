@@ -63,8 +63,8 @@ function initializeGame() {
         ressourcesCounters.push(new Counter(
             this,
             {
-                x: window.innerWidth - 70,
-                y: 40 + ressources.indexOf(ressource) * 60
+                x: window.innerWidth - 90,
+                y: 40 + ressources.indexOf(ressource) * 80
             },
             ressource.toUpperCase(),
             0,
@@ -113,14 +113,14 @@ function initializeGame() {
     // Gods (zone 3) - 15% de la largeur
     const gods = ["odin", "njörd", "thor", "loki", "freyr"];
     const toggles = [];
-    const godsX = window.innerWidth * 0.50;
+    const godsX = window.innerWidth * 0.46;
     const godsStartY = window.innerHeight / 2 - 160;
     gods.forEach((god) => {
         toggles.push(new ToggleSquare(
             this,
             {
                 x: godsX,
-                y: godsStartY + gods.indexOf(god) * 70
+                y: godsStartY + gods.indexOf(god) * 60
             },
             god[0].toUpperCase() + god.slice(1),
             {
