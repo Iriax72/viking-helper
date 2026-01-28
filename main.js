@@ -63,7 +63,7 @@ function initializeGame() {
         ressourcesCounters.push(new Counter(
             this,
             {
-                x: window.innerWidth - 120,
+                x: window.innerWidth - 70,
                 y: 40 + ressources.indexOf(ressource) * 60
             },
             ressource.toUpperCase(),
@@ -73,8 +73,8 @@ function initializeGame() {
     });
     gameElements.ressourcesCounters = ressourcesCounters;
 
-    // Gloire (zone gauche)
-    const gloryX = window.innerWidth * 0.08;
+    // Gloire (zone gauche) - 10% de la largeur
+    const gloryX = window.innerWidth * 0.05;
     const glory = new Jauge(
         this,
         {x: gloryX, y: window.innerHeight / 2},
@@ -87,12 +87,12 @@ function initializeGame() {
     )
     gameElements.glory = glory;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.15}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.11}));
 
-    // Batiments (zone 2)
+    // Batiments (zone 2) - 15% de la largeur
     const batiments = ["mairie", "port", "forge", "temple", "champ"];
     const LevelCounters = [];
-    const batimentsX = window.innerWidth * 0.28;
+    const batimentsX = window.innerWidth * 0.24;
     const batimentsStartY = window.innerHeight / 2 - 160;
     batiments.forEach((bat) => {
         LevelCounters.push(new Counter(
@@ -108,12 +108,12 @@ function initializeGame() {
     });
     gameElements.levelCounters = LevelCounters;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.4}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.37}));
 
-    // Gods (zone 3)
+    // Gods (zone 3) - 15% de la largeur
     const gods = ["odin", "njörd", "thor", "loki", "freyr"];
     const toggles = [];
-    const godsX = window.innerWidth * 0.53;
+    const godsX = window.innerWidth * 0.50;
     const godsStartY = window.innerHeight / 2 - 160;
     gods.forEach((god) => {
         toggles.push(new ToggleSquare(
@@ -131,10 +131,10 @@ function initializeGame() {
     });
     gameElements.toggles = toggles;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.65}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.63}));
 
-    // Combat (zone droite)
-    const combatX = window.innerWidth * 0.78;
+    // Combat (zone droite) - 10% de la largeur
+    const combatX = window.innerWidth * 0.73;
     const combatStartY = window.innerHeight / 2 - 120;
     
     const dice = new Dice(this, combatX, combatStartY);
@@ -158,7 +158,7 @@ function initializeGame() {
     );
     gameElements.loseDeck = loseDeck;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.92}));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.87}));
     gameElements.separateurs = separateurs;
 }
 
