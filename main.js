@@ -142,7 +142,7 @@ function initializeGame() {
 
     const winDeck = new CardDeck(
         this,
-        {x: combatX, y: combatStartY + 90},
+        {x: combatX, y: combatStartY + 120},
         "carte victoire",
         winCards,
         true
@@ -151,7 +151,7 @@ function initializeGame() {
 
     const loseDeck = new CardDeck(
         this,
-        {x: combatX, y: combatStartY + 160},
+        {x: combatX, y: combatStartY + 260},
         "carte défaite",
         loseCards,
         true
