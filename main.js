@@ -108,7 +108,7 @@ function initializeGame() {
     });
     gameElements.levelCounters = LevelCounters;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.38, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.36, y: 0}, window.innerHeight));
 
     // Gods (zone 3) - 15% de la largeur
     const gods = ["odin", "njörd", "thor", "loki", "freyr"];
@@ -131,16 +131,15 @@ function initializeGame() {
     });
     gameElements.toggles = toggles;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.61, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.55, y: 0}, window.innerHeight));
 
-    // Combat (zone droite) - 10% de la largeur
-    // Nouvelle zone (zone 4) - 10% de la largeur
-    const nouvelleZoneX = window.innerWidth * 0.71;
+    // Raid et technologies (zone 4)
+    const raidNTech = window.innerWidth * 0.56;
     
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.62, y: 0}, window.innerHeight));
 
-    // Combat (zone 5) - 10% de la largeur
-    const combatX = window.innerWidth * 0.78;
+    // Combat (zone 5)
+    const combatX = window.innerWidth * 0.63;
     const combatStartY = window.innerHeight / 2 - 120;
     
     const dice = new Dice(this, combatX, combatStartY);
@@ -164,7 +163,7 @@ function initializeGame() {
     );
     gameElements.loseDeck = loseDeck;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.93, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.83, y: 0}, window.innerHeight));
     gameElements.separateurs = separateurs;
 }
 
