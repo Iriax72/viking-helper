@@ -1,4 +1,4 @@
-import {winCards, loseCards, ressources, technologies} from "./datas.js";
+import {datas} from "./datas.js";
 
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
@@ -37,6 +37,7 @@ let gameElements = {
     dice: null,
     winDeck: null,
     loseDeck: null,
+    techDeck: null,
     separateurs: []
 };
 
@@ -59,12 +60,12 @@ function initializeGame() {
 
     // Ressources (haut à droite)
     let ressourcesCounters = [];
-    ressources.forEach((ressource) => {
+    datas.ressources.forEach((ressource) => {
         ressourcesCounters.push(new Counter(
             this,
             {
                 x: window.innerWidth - 90,
-                y: 40 + ressources.indexOf(ressource) * 80
+                y: 40 + datas.ressources.indexOf(ressource) * 80
             },
             ressource.toUpperCase(),
             0,
@@ -87,19 +88,18 @@ function initializeGame() {
     )
     gameElements.glory = glory;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.08, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[0], y: 0}, window.innerHeight));
 
     // Batiments (zone 2)
-    const batiments = ["mairie", "port", "forge", "temple", "champ"];
     const LevelCounters = [];
     const batimentsX = window.innerWidth * 0.20;
     const batimentsStartY = window.innerHeight / 2 - 160;
-    batiments.forEach((bat) => {
+    datas.batiments.forEach((bat) => {
         LevelCounters.push(new Counter(
             this,
             {
                 x: batimentsX,
-                y: batimentsStartY + batiments.indexOf(bat) * 70
+                y: batimentsStartY + datas.batiments.indexOf(bat) * 70
             },
             bat.toUpperCase(),
             (bat === "mairie" || bat === "port") ? 1 : 0,
@@ -108,19 +108,18 @@ function initializeGame() {
     });
     gameElements.levelCounters = LevelCounters;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.31, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[1], y: 0}, window.innerHeight));
 
     // Gods (zone 3)
-    const gods = ["odin", "njörd", "thor", "loki", "freyr"];
     const toggles = [];
     const godsX = window.innerWidth * 0.40;
     const godsStartY = window.innerHeight / 2 - 160;
-    gods.forEach((god) => {
+    datas.gods.forEach((god) => {
         toggles.push(new ToggleSquare(
             this,
             {
                 x: godsX,
-                y: godsStartY + gods.indexOf(god) * 70
+                y: godsStartY + datas.gods.indexOf(god) * 70
             },
             god[0].toUpperCase() + god.slice(1),
             {
@@ -131,7 +130,7 @@ function initializeGame() {
     });
     gameElements.toggles = toggles;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.50, y: 0}, window.innerHeight, 0x00ff00));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[2], y: 0}, window.innerHeight, 0x00ff00));
 
     // Combat (zone 4)
     const combatX = window.innerWidth * 0.57;
@@ -144,7 +143,7 @@ function initializeGame() {
         this,
         {x: combatX, y: combatStartY + 120},
         "carte victoire",
-        winCards,
+        datas.winCards,
         true
     );
     gameElements.winDeck = winDeck;
@@ -153,12 +152,12 @@ function initializeGame() {
         this,
         {x: combatX, y: combatStartY + 253},
         "carte défaite",
-        loseCards,
+        datas.loseCards,
         true
     );
     gameElements.loseDeck = loseDeck;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.64, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[3], y: 0}, window.innerHeight));
 
     // raid n technologies (zone 5)
     const raidntechX = window.innerWidth * 0.70;
@@ -166,12 +165,12 @@ function initializeGame() {
         this,
         {x: raidntechX, y: window.innerHeight * 0.7},
         "technologies",
-        technologies,
+        datas.technologies,
         false
     );
     gameElements.techDeck = techDeck;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.77, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[4], y: 0}, window.innerHeight));
     gameElements.separateurs = separateurs;
 }
 
@@ -261,20 +260,8 @@ function printMessage() {
     // Afficher un message d'orientation
     const messageDiv = document.createElement('div');
     messageDiv.id = 'orientation-message';
-    messageDiv.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        font-size: 18px;
-        text-align: center;
-        z-index: 1000;
-    `;
-    messageDiv.textContent = 'Veuillez utiliser l\'application en mode paysage';
+    messageDiv.style.cssText = datas.messageStyle;
+    messageDiv.textContent = "Veuillez utiliser l'application en mode paysage";
     document.body.appendChild(messageDiv);
 }
 
