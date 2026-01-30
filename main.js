@@ -92,7 +92,7 @@ function initializeGame() {
     // Batiments (zone 2)
     const batiments = ["mairie", "port", "forge", "temple", "champ"];
     const LevelCounters = [];
-    const batimentsX = window.innerWidth * 0.21;
+    const batimentsX = window.innerWidth * 0.20;
     const batimentsStartY = window.innerHeight / 2 - 160;
     batiments.forEach((bat) => {
         LevelCounters.push(new Counter(
@@ -113,7 +113,7 @@ function initializeGame() {
     // Gods (zone 3)
     const gods = ["odin", "njörd", "thor", "loki", "freyr"];
     const toggles = [];
-    const godsX = window.innerWidth * 0.39;
+    const godsX = window.innerWidth * 0.40;
     const godsStartY = window.innerHeight / 2 - 160;
     gods.forEach((god) => {
         toggles.push(new ToggleSquare(
@@ -163,7 +163,7 @@ function initializeGame() {
     );
     gameElements.loseDeck = loseDeck;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.80, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.77, y: 0}, window.innerHeight));
     gameElements.separateurs = separateurs;
 }
 
