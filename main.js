@@ -161,10 +161,10 @@ function initializeGame() {
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.64, y: 0}, window.innerHeight));
 
     // raid n technologies (zone 5)
-    const raidntechX = window.innerHeight * 0.70;
+    const raidntechX = window.innerWidth * 0.70;
     const techDeck = new CardDeck(
         this,
-        {x: raidntechX, y: window.innerHeight * 0.3},
+        {x: raidntechX, y: window.innerHeight * 0.7},
         "technologies",
         technologies,
         false
