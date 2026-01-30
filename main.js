@@ -131,12 +131,12 @@ function initializeGame() {
     });
     gameElements.toggles = toggles;
 
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.50, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.50, y: 0}, window.innerHeight, 0x00ff00));
 
     // Raid et technologies (zone 4)
     const raidNTech = window.innerWidth * 0.51;
     
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.64, y: 0}, window.innerHeight));
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.64, y: 0}, window.innerHeight, 0xff0000));
 
     // Combat (zone 5)
     const combatX = window.innerWidth * 0.57;
@@ -156,7 +156,7 @@ function initializeGame() {
 
     const loseDeck = new CardDeck(
         this,
-        {x: combatX, y: combatStartY + 260},
+        {x: combatX, y: combatStartY + 253},
         "carte défaite",
         loseCards,
         true
