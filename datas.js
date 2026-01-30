@@ -21,6 +21,17 @@ export const ressources = [
     "force armées"
 ];
 
+export const technologies = [
+    "tech no1",
+    "tech no2",
+    "tech no3",
+    "tech no4",
+    "tech no5",
+    "tech no6",
+    "tech no7",
+    "tech no8"
+]
+
 // Batiments
 
 // Gods

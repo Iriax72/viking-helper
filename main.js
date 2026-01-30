@@ -1,4 +1,4 @@
-import {winCards, loseCards, ressources} from "./datas.js";
+import {winCards, loseCards, ressources, technologies} from "./datas.js";
 
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
@@ -133,12 +133,7 @@ function initializeGame() {
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.50, y: 0}, window.innerHeight, 0x00ff00));
 
-    // Raid et technologies (zone 4)
-    const raidNTech = window.innerWidth * 0.51;
-    
-    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.64, y: 0}, window.innerHeight, 0xff0000));
-
-    // Combat (zone 5)
+    // Combat (zone 4)
     const combatX = window.innerWidth * 0.57;
     const combatStartY = window.innerHeight / 2 - 120;
     
@@ -162,6 +157,19 @@ function initializeGame() {
         true
     );
     gameElements.loseDeck = loseDeck;
+
+    separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.64, y: 0}, window.innerHeight));
+
+    // raid n technologies (zone 5)
+    const raidntechX = window.innerHeight * 0.70;
+    const techDeck = new CardDeck(
+        this,
+        {x: raidntechX, y: window.innerHeight * 0.3},
+        "technologies",
+        technologies,
+        false
+    );
+    gameElements.techDeck = techDeck;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * 0.77, y: 0}, window.innerHeight));
     gameElements.separateurs = separateurs;
@@ -201,6 +209,11 @@ function destroyGame() {
     if (gameElements.loseDeck) {
         gameElements.loseDeck.destroy();
         gameElements.loseDeck = null;
+    }
+
+    if (gameElements.techDeck) {
+        gameElements.techDeck.destroy();
+        gameElements.techDeck = null;
     }
     
     // Détruire les séparateurs
