@@ -9,4 +9,8 @@ export class Button{
         document.body.appendChild(this.element);
         this.element.addEventListener('click', callback);
     }
+
+    remove() {
+        this.element.remove();
+    }
 }
