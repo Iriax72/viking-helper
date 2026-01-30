@@ -7,6 +7,7 @@ import {CardDeck} from "./elements/CardDeck.js";
 import {Counter} from "./elements/Counter.js";
 import { LevelCounter } from "./elements/LevelCounter.js";
 import { Separateur } from "./elements/Separateur.js";
+import { Button } from "./elements/Button.js";
 
 const gameContainer = document.body;
 
@@ -38,6 +39,7 @@ let gameElements = {
     winDeck: null,
     loseDeck: null,
     techDeck: null,
+    raidsButton: null,
     separateurs: []
 };
 
@@ -170,6 +172,15 @@ function initializeGame() {
     );
     gameElements.techDeck = techDeck;
 
+    // Bouton 'raids'
+    const raidsButton = new Button(
+        'raids',
+        {x: raidntechX - 40, y: window.innerHeight * 0.7 - 80},
+        () => {},
+        datas.raidsButtonStyle
+    );
+    gameElements.raidsButton = raidsButton;
+
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[4], y: 0}, window.innerHeight));
     gameElements.separateurs = separateurs;
 }
@@ -214,7 +225,11 @@ function destroyGame() {
         gameElements.techDeck.destroy();
         gameElements.techDeck = null;
     }
-    
+    // Détruire le bouton 'raids' s'il existe
+    if (gameElements.raidsButton) {
+        gameElements.raidsButton.remove();
+        gameElements.raidsButton = null;
+    }
     // Détruire les séparateurs
     gameElements.separateurs.forEach(sep => sep.graphic.destroy());
     gameElements.separateurs = [];
@@ -241,6 +256,8 @@ function hideContent() {
     if (gameElements.dice) gameElements.dice.container.setVisible(false);
     if (gameElements.winDeck) gameElements.winDeck.setVisible(false);
     if (gameElements.loseDeck) gameElements.loseDeck.setVisible(false);
+    if (gameElements.techDeck) gameElements.techDeck.setVisible(false);
+    if (gameElements.raidsButton) gameElements.raidsButton.style.display = 'none';
     gameElements.separateurs.forEach(sep => sep.graphic.setVisible(false));
 }
 
@@ -253,6 +270,8 @@ function showContent() {
     if (gameElements.dice) gameElements.dice.container.setVisible(true);
     if (gameElements.winDeck) gameElements.winDeck.setVisible(true);
     if (gameElements.loseDeck) gameElements.loseDeck.setVisible(true);
+    if (gameElements.techDeck) gameElements.techDeck.setVisible(true);
+    if (gameElements.raidsButton) gameElements.raidsButton.style.display = 'block';
     gameElements.separateurs.forEach(sep => sep.graphic.setVisible(true));
 }
 

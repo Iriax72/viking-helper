@@ -69,5 +69,12 @@ export const datas = {
         font-size: 18px;
         text-align: center;
         z-index: 1000;
-    `
+    `,
+
+    raidsButtonStyle: {
+        position: 'absolute',
+        zIndex: 1000,
+        padding: '8px 12px',
+        cursor: 'pointer'
+    }
 };
