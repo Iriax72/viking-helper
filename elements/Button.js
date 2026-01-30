@@ -8,6 +8,8 @@ export class Button{
         this.element.style.top = coos.y;
         document.body.appendChild(this.element);
         this.element.addEventListener('click', callback);
+        
+        this.style = this.element.style;
     }
 
     remove() {
