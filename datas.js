@@ -91,7 +91,18 @@ export const datas = {
     raidsButtonStyle: {
         position: 'absolute',
         zIndex: 1000,
-        padding: '8px 12px',
-        cursor: 'pointer'
+        width: '80px',
+        height: '80px',
+        padding: '0',
+        cursor: 'pointer',
+        background: '#4a90e2',
+        color: '#ffffff',
+        border: '3px solid #2e5c8a',
+        borderRadius: '12px',
+        fontSize: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 6px 12px rgba(0,0,0,0.15)'
     }
 };

@@ -19,6 +19,14 @@ export class Button{
         this.element.style.top = (typeof coos.y === 'number') ? `${coos.y}px` : coos.y;
         document.body.appendChild(this.element);
         this.element.addEventListener('click', callback);
+        // Ajouter un effet hover/scale pour ressembler au bouton 'Dice'
+        this.element.style.transition = this.element.style.transition || 'transform 100ms ease';
+        this.element.addEventListener('mouseover', () => {
+            this.element.style.transform = 'scale(1.1)';
+        });
+        this.element.addEventListener('mouseout', () => {
+            this.element.style.transform = 'scale(1)';
+        });
         
         this.style = this.element.style;
     }
