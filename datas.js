@@ -45,9 +45,10 @@ export const datas = {
         "TECHNOLOGIE:\n+3 moutons",
         "TECHNOLOGIE:\nAméliorez un bâtiment gratuitement, sans en obtenir les bonus. Si tous vos bâtiments sont niveau 4, cette carte ne fait rien",
         "TECHNOLOGIE:\nObtenez de l’or jusqu’à ce que vous en ayez autant que le joueur à votre gauche. S’il en a moins ou autant que vous, prenez lui un or. S’il n’en a pas, cette carte ne fait rien.",
-        "TECHNOLOGIE:\nTechnologie avancée:\nConservez cette carte jusqu’à la fin de la partie. Elle est nécessaire pour obtenir la faveur de Loki. Vous pouvez à tout moment la défausser pour obtenir 1 or ou 1 mouton ou 1 prisonnier ou 1 force armée. (x3)",
-        "TECHNOLOGIE:\nTechnologie avancée:\nConservez cette carte jusqu’à la fin de la partie. Elle est nécessaire pour obtenir la faveur de Loki. Vous pouvez à tout moment la défausser pour obtenir 1 or ou 1 mouton ou 1 prisonnier ou 1 force armée. (x3)",
-        "TECHNOLOGIE:\nTechnologie avancée:\nConservez cette carte jusqu’à la fin de la partie. Elle est nécessaire pour obtenir la faveur de Loki. Vous pouvez à tout moment la défausser pour obtenir 1 or ou 1 mouton ou 1 prisonnier ou 1 force armée. (x3)"
+        "TECHNOLOGIE:\nTechnologie avancée:\nConservez cette carte jusqu’à la fin de la partie. Elle est nécessaire pour obtenir la faveur d'Odin. Vous pouvez à tout moment la défausser pour obtenir 1 or ou 1 mouton ou 1 prisonnier ou 1 force armée. (x3)",
+        "TECHNOLOGIE:\nTechnologie avancée:\nConservez cette carte jusqu’à la fin de la partie. Elle est nécessaire pour obtenir la faveur d'Odin. Vous pouvez à tout moment la défausser pour obtenir 1 or ou 1 mouton ou 1 prisonnier ou 1 force armée. (x3)",
+        "TECHNOLOGIE:\nTechnologie avancée:\nConservez cette carte jusqu’à la fin de la partie. Elle est nécessaire pour obtenir la faveur d'Odin. Vous pouvez à tout moment la défausser pour obtenir 1 or ou 1 mouton ou 1 prisonnier ou 1 force armée. (x3)",
+        "TECHNOLOGIE:\nRejouez un tour."
     ],
     
     batiments : [
