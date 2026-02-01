@@ -175,7 +175,7 @@ function initializeGame() {
     // Bouton 'raids'
     const raidsButton = new Button(
         'raids',
-        {x: raidntechX - 40, y: window.innerHeight * 0.7 - 80},
+        {x: raidntechX - 40, y: window.innerHeight * 0.3},
         () => {},
         datas.raidsButtonStyle
     );
