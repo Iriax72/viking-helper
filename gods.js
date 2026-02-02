@@ -1,4 +1,5 @@
 export function gods (gameElements) {
+    /*
     // Récupérer les valeur des ressources
     const gloire = gameElements.gloire.getValue();
     const gold = gameElements.ressourcesCounters[0].getValue();
@@ -39,4 +40,5 @@ export function gods (gameElements) {
     }
 
     // TODO: remplir les conditions avec carte pour ofin et thor
+    */
 }

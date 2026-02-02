@@ -62,12 +62,9 @@ export class ToggleSquare {
     const borderRadius = 8;
     
     // Dessiner le carré avec la couleur appropriée
-    if (this.state === true) {
+    if (this.state) {
       // État true: vert
       this.square.fillStyle(0x4caf50);
-    } else if (this.state === 'possible') {
-      //État possible: orange
-      this.square.fillStyle(0xff9800);
     } else {
       // État false: rouge
       this.square.fillStyle(0xf44336);
@@ -118,7 +115,7 @@ export class ToggleSquare {
   }
   
   toggle() {
-    this.state = this.state === 'possible' ? true : !this.state;
+    this.state = !this.state;
     this.draw();
     
     // Animation de feedback (seulement sur le carré)
