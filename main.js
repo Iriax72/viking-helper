@@ -1,5 +1,4 @@
 import {datas} from "./datas.js";
-import {gods} from "./gods.js";
 
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
@@ -97,16 +96,17 @@ function initializeGame() {
     const levelCounters = [];
     const batimentsX = window.innerWidth * 0.20;
     const batimentsStartY = window.innerHeight / 2 - 160;
-    datas.batiments.forEach((bat) => {
+    const buildingsList = Object.values(datas.godsAndBuildings);
+    buildingsList.forEach((bat) => {
         levelCounters.push(new Counter(
             this,
             {
                 x: batimentsX,
-                y: batimentsStartY + datas.batiments.indexOf(bat) * 70
+                y: batimentsStartY + buildingsList.indexOf(bat) * 70
             },
             bat.toUpperCase(),
             (bat === "mairie" || bat === "port") ? 1 : 0,
-            (bat === "mairie" || bat === "port") ? [1, 4] : [0, 4]
+            (bat === "mairie" || bat === "port") ? [1, 3] : [0, 3]
         ));
     });
     gameElements.buildings = levelCounters;
@@ -117,12 +117,13 @@ function initializeGame() {
     const toggles = [];
     const godsX = window.innerWidth * 0.40;
     const godsStartY = window.innerHeight / 2 - 160;
-    datas.gods.forEach((god) => {
+    const godsList = Object.keys(datas.godsAndBuildings);
+    godsList.forEach((god) => {
         toggles.push(new ToggleSquare(
             this,
             {
                 x: godsX,
-                y: godsStartY + datas.gods.indexOf(god) * 70
+                y: godsStartY + godsList.indexOf(god) * 70
             },
             god[0].toUpperCase() + god.slice(1),
             {
@@ -187,7 +188,27 @@ function initializeGame() {
 }
 
 function update() {
-    gods(gameElements);
+    let godsAndBuildings = Object.entries(datas.godsAndBuildings);
+    let godsAndBuildingsMap = {};
+
+    // Récupérer l'état des dieux
+    godsAndBuildings.forEach(([god, building]) => {
+        godsAndBuildingsMap[god] = gameElements.toggles.find(toggle => toggle.label === god);
+    });
+
+    // Récuperer les batiments
+    godsAndBuildings.forEach(([god, building]) => {
+        godsAndBuildingsMap[building] = gameElements.buildings.find(buildingCounter => buildingCounter.label === building);
+    });
+
+    // automatiquement activer le nv4 si le dieu est débeloqué
+    godsAndBuildings.forEach(([god, building]) => {
+        if (godsAndBuildingsMap[god] && godsAndBuildingsMap[god].getState()) {
+            if (godsAndBuildingsMap[building] && typeof godsAndBuildingsMap[building].setBorneMax === 'function') {
+                godsAndBuildingsMap[building].setBorneMax(4);
+            }
+        }
+    });
 }
 
 function destroyGame() {

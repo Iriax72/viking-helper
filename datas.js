@@ -51,21 +51,13 @@ export const datas = {
         "TECHNOLOGIE:\nRejouez un tour."
     ],
     
-    batiments : [
-        "mairie",
-        "port",
-        "forte",
-        "temple",
-        "champ"
-    ],
-
-    gods: [
-        "odin",
-        "njörd",
-        "thor",
-        "loki",
-        "freyr"
-    ],
+    godsAndBuildings: {
+        "odin": "mairie",
+        "njörd": "port",
+        "thor": "forge",
+        "loki": "temple",
+        "freyr": "champ"
+    },
 
     separateurX: [
         0.08,
