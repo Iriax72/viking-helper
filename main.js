@@ -1,4 +1,5 @@
 import {datas} from "./datas.js";
+import {gods} from "./gods.js";
 
 import {Jauge} from "./elements/Jauge.js";
 import {Dice} from "./elements/Dice.js";
@@ -33,7 +34,7 @@ const game = new Phaser.Game(config);
 let gameElements = {
     ressourcesCounters: [],
     glory: null,
-    levelCounters: [],
+    buildings: [],
     toggles: [],
     dice: null,
     winDeck: null,
@@ -93,11 +94,11 @@ function initializeGame() {
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[0], y: 0}, window.innerHeight));
 
     // Batiments (zone 2)
-    const LevelCounters = [];
+    const levelCounters = [];
     const batimentsX = window.innerWidth * 0.20;
     const batimentsStartY = window.innerHeight / 2 - 160;
     datas.batiments.forEach((bat) => {
-        LevelCounters.push(new Counter(
+        levelCounters.push(new Counter(
             this,
             {
                 x: batimentsX,
@@ -108,7 +109,7 @@ function initializeGame() {
             (bat === "mairie" || bat === "port") ? [1, 4] : [0, 4]
         ));
     });
-    gameElements.levelCounters = LevelCounters;
+    gameElements.buildings = levelCounters;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[1], y: 0}, window.innerHeight));
 
@@ -185,6 +186,10 @@ function initializeGame() {
     gameElements.separateurs = separateurs;
 }
 
+function update() {
+    gods(gameElements);
+}
+
 function destroyGame() {
     // Détruire tous les compteurs de ressources
     gameElements.ressourcesCounters.forEach(counter => counter.destroy());
@@ -197,8 +202,8 @@ function destroyGame() {
     }
     
     // Détruire tous les compteurs de bâtiments
-    gameElements.levelCounters.forEach(counter => counter.destroy());
-    gameElements.levelCounters = [];
+    gameElements.buildings.forEach(counter => counter.destroy());
+    gameElements.buildings = [];
     
     // Détruire tous les toggles des dieux
     gameElements.toggles.forEach(toggle => toggle.container.destroy());
@@ -235,8 +240,6 @@ function destroyGame() {
     gameElements.separateurs = [];
 }
 
-function update () {}
-
 function checkOrientation() {
     if (window.innerWidth < window.innerHeight) {
         hideContent();
@@ -251,7 +254,7 @@ function hideContent() {
     // Masquer tous les éléments créés
     gameElements.ressourcesCounters.forEach(counter => counter.setVisible(false));
     if (gameElements.glory) gameElements.glory.container.setVisible(false);
-    gameElements.levelCounters.forEach(counter => counter.setVisible(false));
+    gameElements.buildings.forEach(counter => counter.setVisible(false));
     gameElements.toggles.forEach(toggle => toggle.container.setVisible(false));
     if (gameElements.dice) gameElements.dice.container.setVisible(false);
     if (gameElements.winDeck) gameElements.winDeck.setVisible(false);
@@ -265,7 +268,7 @@ function showContent() {
     // Afficher tous les éléments créés
     gameElements.ressourcesCounters.forEach(counter => counter.setVisible(true));
     if (gameElements.glory) gameElements.glory.container.setVisible(true);
-    gameElements.levelCounters.forEach(counter => counter.setVisible(true));
+    gameElements.buildings.forEach(counter => counter.setVisible(true));
     gameElements.toggles.forEach(toggle => toggle.container.setVisible(true));
     if (gameElements.dice) gameElements.dice.container.setVisible(true);
     if (gameElements.winDeck) gameElements.winDeck.setVisible(true);
