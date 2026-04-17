@@ -9,7 +9,7 @@ import { LevelCounter } from "./elements/LevelCounter.js";
 import { Separateur } from "./elements/Separateur.js";
 import { Button } from "./elements/Button.js";
 
-const gameContainer = document.body;
+const gameContainer = document.body.querySelector(main);
 
 const config = {
     type: Phaser.AUTO,
