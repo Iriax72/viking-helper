@@ -2,7 +2,6 @@ export class CardDeck extends Phaser.GameObjects.Container {
     constructor(scene, coos, name, deck, recycle = true, onCardChosen = null) {
         super(scene, coos.x, coos.y);
         
-        this.scene = scene;
         this.deckName = name; // Nom personnalisable du deck
         this.deck = [...deck]; // Copie du deck initial
         this.defausse = []; // Pile de défausse
