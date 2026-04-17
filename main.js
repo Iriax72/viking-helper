@@ -181,7 +181,7 @@ function initializeGame() {
         () => {},
         // datas.raidsButtonStyle
     );
-    raidsButton.classList.add('raidBtn');
+    raidsButton.element.classList.add('raidBtn');
     gameElements.raidsButton = raidsButton;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[4], y: 0}, window.innerHeight));
