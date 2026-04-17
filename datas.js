@@ -67,6 +67,7 @@ export const datas = {
         0.77
     ],
 
+    /*
     messageStyle: `
         position: fixed;
         top: 50%;
@@ -98,4 +99,5 @@ export const datas = {
         justifyContent: 'center',
         boxShadow: '0 6px 12px rgba(0,0,0,0.15)'
     }
+    */
 };

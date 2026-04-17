@@ -179,8 +179,9 @@ function initializeGame() {
         'raids',
         {x: raidntechX - 40, y: window.innerHeight * 0.3},
         () => {},
-        datas.raidsButtonStyle
+        // datas.raidsButtonStyle
     );
+    raidsButton.classList.add('raidBtn');
     gameElements.raidsButton = raidsButton;
 
     separateurs.push(new Separateur(this, 'vertical', {x: window.innerWidth * datas.separateurX[4], y: 0}, window.innerHeight));
@@ -303,7 +304,8 @@ function printMessage() {
     // Afficher un message d'orientation
     const messageDiv = document.createElement('div');
     messageDiv.id = 'orientation-message';
-    messageDiv.style.cssText = datas.messageStyle;
+    // messageDiv.style.cssText = datas.messageStyle;
+    messageDiv.classList.add('message');
     messageDiv.textContent = "Veuillez utiliser l'application en mode paysage";
     document.body.appendChild(messageDiv);
 }
